@@ -30,7 +30,7 @@ function enter(){
     let arrLogins = text.split(', ')
     let indexLog = arrLogins.indexOf(login.value)
     if (arrLogins.includes(login.value) && indexLog%2==0 && arrLogins[indexLog + 1]==password.value){
-      window.location.href = "Logged/index.html"
+      window.location.href = "../Logged/index.html"
     } else {
       tentativas()
     }
