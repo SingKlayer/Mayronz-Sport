@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Mayronz Sport</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="images/favicon.png">
+</head>
+
+<body>
+  <header class="logo">
+    <img src="images/Logo.svg">
+  </header>
+</div>
+
+</div>
+
+  
+<div class="edit-container">
+  <h1 id="editar">Editar Estoque</h1>
+  <div class="stock-container">
+    <select class="select-input">
+      <option value="" disabled selected hidden>Selecione o item a editar ou excluir</option>
+    </select>
+    <input type="text" class="edit-name" placeholder="Edite o nome do produto">
+    <input type="text" class="edit-quantity" placeholder="Edite a quantidade do produto">
+    <button class="edit-button">Editar</button>
+    <button class="delete-button">Excluir</button>
+    <button id="exportBtn">Exportar Relatório</button>
+  </div>
+  
+  <button class="back-button" id="backBtn">Voltar</button>
+</div>
+
+
+
+
+
+
+
+
+  
+
+<div class="container">
+
+    <div class="register-container">
+    
+      <hr class="hr-register">
+
+      <h1 id="register">Registrar</h1>
+
+      <div class="product-name">
+        <label for="product-input">Nome do produto</label>
+        <input type="text" name="product-input" class="product-input">
+      </div>
+
+      <div class="category">
+        <label for="category-select">Categoria</label>
+        <select name="category-select" class="category-select">
+          <option value="shirts">Camisa</option>
+          <option value="accessories">Acessórios</option>
+          <option value="shoes">Tênis</option>
+          <option value="shorts">Bermudas</option>
+        </select>
+      </div>
+
+      <div class="itens-quantity">
+        <label for="quantity-input">Quantidade</label>
+        <input type="text" name="quantity-input" class="quantity-input">
+      </div>
+
+      <button class="submit-button" id="submitBtn">Adicionar</button>
+      <div class="success-message" id="successMessage">Item adicionado com sucesso!</div>
+
+    </div>
+    
+    <div class="info-container">
+      <div class="info-background">
+        <h1 id="infos">Infos:</h1>
+      </div>
+      <p class="category-product">Camisas: <span class="percentage percent-shirts">0</span></p>
+      <p class="minimum-percent-shirts">Valor mínimo: 10%</p>
+
+      <p class="category-product">Acessórios: <span class="percentage percent-accessories">0</span></p>
+      <p class="minimum-percent-acc">Valor mínimo: 10%</p>
+
+      <p class="category-product">Tênis: <span class="percentage percent-shoes">0</span></p>
+      <p class="minimum-percent-shoes">Valor mínimo: 10%</p>
+
+      <p class="category-product">Bermudas: <span class="percentage percent-shorts">0</span></p>
+      <p class="minimum-percent-shorts">Valor mínimo: 10%</p>
+
+      <hr class="hr-infos">
+
+      <p class="label-total">Quantitativo total:</p>
+      <p class="quantity-products"><span class="total-products">0</span> Produtos</p>
+
+    </div>
+    <button class="submit-button2" id="submitBtn2">Estoque</button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
