@@ -636,6 +636,7 @@ textarea {
 
 .selector-lang {
   font-weight: bold;
+  font-size: large;
   width: 330px;
   height: 50px;
   margin-left: 80%;
@@ -645,5 +646,6 @@ textarea {
   padding-left: 10px;
   padding-right: 10px;
   background: #b2ec5b;
+  color: #ffffff;
   box-shadow: 2px 6px 19px 5px rgba(0, 0, 0, 0.15);
 }
