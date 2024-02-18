@@ -20,6 +20,8 @@ let editQuantity = document.querySelector(".edit-quantity");
 
 const exportBtn = document.getElementById("exportBtn");
 
+const languageSelector = document.querySelector("selector-lang");
+
 const miniValuePercent = 10;
 
 let shirtsTotal = 0;
