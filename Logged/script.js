@@ -1,123 +1,113 @@
-let percentShirts = document.querySelector(".percent-shirts")
-let percentAccessories = document.querySelector(".percent-accessories")
-let percentShoes = document.querySelector(".percent-shoes")
-let percentShorts = document.querySelector(".percent-shorts")
+let percentShirts = document.querySelector(".percent-shirts");
+let percentAccessories = document.querySelector(".percent-accessories");
+let percentShoes = document.querySelector(".percent-shoes");
+let percentShorts = document.querySelector(".percent-shorts");
 
-let minimumPercentShirts = document.querySelector(".minimum-percent-shirts")
-let minimumPercentAcc = document.querySelector(".minimum-percent-acc")
-let minimumPercentShoes = document.querySelector(".minimum-percent-shoes")
-let minimumPercentShorts = document.querySelector(".minimum-percent-shorts")
+let minimumPercentShirts = document.querySelector(".minimum-percent-shirts");
+let minimumPercentAcc = document.querySelector(".minimum-percent-acc");
+let minimumPercentShoes = document.querySelector(".minimum-percent-shoes");
+let minimumPercentShorts = document.querySelector(".minimum-percent-shorts");
 
-let totalProducts = document.querySelector(".total-products")
+let totalProducts = document.querySelector(".total-products");
 
-let productInput = document.querySelector(".product-input")
-let categorySelect = document.querySelector(".category-select")
-let quantityInput = document.querySelector(".quantity-input")
+let productInput = document.querySelector(".product-input");
+let categorySelect = document.querySelector(".category-select");
+let quantityInput = document.querySelector(".quantity-input");
 
+let selectInputStock = document.querySelector(".select-input");
+let editName = document.querySelector(".edit-name");
+let editQuantity = document.querySelector(".edit-quantity");
 
-let selectInputStock = document.querySelector(".select-input")
-let editName = document.querySelector(".edit-name")
-let editQuantity = document.querySelector(".edit-quantity")
+const exportBtn = document.getElementById("exportBtn");
 
+const miniValuePercent = 10;
 
-const exportBtn = document.getElementById('exportBtn');
+let shirtsTotal = 0;
+let accTotal = 0;
+let shoesTotal = 0;
+let shortsTotal = 0;
+let totalItens = 0;
 
+let arrayProdutos = [];
 
+const submitBtn = document.getElementById("submitBtn");
+const successMessage = document.getElementById("successMessage");
+const editBtn = document.querySelector(".edit-button");
+const deleteBtn = document.querySelector(".delete-button");
 
-const miniValuePercent = 10
+let index = 0;
+let indexArr = 0;
 
-let shirtsTotal = 0
-let accTotal = 0
-let shoesTotal = 0
-let shortsTotal = 0
-let totalItens = 0
+submitBtn.addEventListener("click", readItem);
+editBtn.addEventListener("click", editItem);
+deleteBtn.addEventListener("click", deleteItem);
 
-let arrayProdutos = []
+categorySelect.addEventListener("change", () => {
+  index = categorySelect.selectedIndex;
+});
 
-const submitBtn = document.getElementById('submitBtn');
-const successMessage = document.getElementById('successMessage');
-const editBtn = document.querySelector('.edit-button')
-const deleteBtn = document.querySelector('.delete-button')
-
-let index = 0
-let indexArr = 0
-
-submitBtn.addEventListener('click', readItem)
-editBtn.addEventListener('click', editItem)
-deleteBtn.addEventListener('click', deleteItem)
-
-categorySelect.addEventListener('change', () => {
-  index = categorySelect.selectedIndex
-})
-
-
-
-function readItem(){
+function readItem() {
   let produto = {
     nome: productInput.value,
     quantidade: parseInt(quantityInput.value),
     categoria: categorySelect[index].value,
-    id: Math.random().toString(36).substr(2, 9)
-  }
+    id: Math.random().toString(36).substr(2, 9),
+  };
 
-  if(arrayProdutos.find(({ nome }) => nome === produto.nome) ){
-    for (let i = 0; i<arrayProdutos.length; i++){
-      if(arrayProdutos[i].nome == produto.nome){
-        arrayProdutos[i].quantidade += produto.quantidade
-        break
+  if (arrayProdutos.find(({ nome }) => nome === produto.nome)) {
+    for (let i = 0; i < arrayProdutos.length; i++) {
+      if (arrayProdutos[i].nome == produto.nome) {
+        arrayProdutos[i].quantidade += produto.quantidade;
+        break;
       }
     }
-  }else{
-    arrayProdutos.push(produto)
+  } else {
+    arrayProdutos.push(produto);
   }
-  
-  updateTotal(produto)
-  addItens(produto, 0)
+
+  updateTotal(produto);
+  addItens(produto, 0);
 }
 
-
-function updateTotal(prod){
-  totalItens += prod.quantidade
-  totalProducts.innerHTML = totalItens
+function updateTotal(prod) {
+  totalItens += prod.quantidade;
+  totalProducts.innerHTML = totalItens;
 }
 
 //Função para adicionar os itens assim que o botão é pressionado
 //A função chama as outras dentro dela mesma
-function addItens(obj, qtdAntiga){
-
-
-  if(obj.categoria == "shirts" && obj.nome != ""){
-    shirtsTotal -= qtdAntiga
-    shirtsTotal += obj.quantidade
-  }else if(obj.categoria == "accessories" && obj.nome != ""){
-    accTotal -= qtdAntiga
-    accTotal += obj.quantidade
-  }else if (obj.categoria == "shoes" && obj.nome != ""){
-    shoesTotal -= qtdAntiga
-    shoesTotal += obj.quantidade
-  }else if (obj.categoria == "shorts" && obj.nome != ""){
-    shortsTotal -= qtdAntiga
-    shortsTotal += obj.quantidade
-  }else{
-    window.alert("Preencha todos os campos")
+function addItens(obj, qtdAntiga) {
+  if (obj.categoria == "shirts" && obj.nome != "") {
+    shirtsTotal -= qtdAntiga;
+    shirtsTotal += obj.quantidade;
+  } else if (obj.categoria == "accessories" && obj.nome != "") {
+    accTotal -= qtdAntiga;
+    accTotal += obj.quantidade;
+  } else if (obj.categoria == "shoes" && obj.nome != "") {
+    shoesTotal -= qtdAntiga;
+    shoesTotal += obj.quantidade;
+  } else if (obj.categoria == "shorts" && obj.nome != "") {
+    shortsTotal -= qtdAntiga;
+    shortsTotal += obj.quantidade;
+  } else {
+    window.alert("Preencha todos os campos");
   }
 
-  productInput.value = ""
-  quantityInput.value = ""
-  updateTexts()
-  saveDataToLocalStorage()
-  selectAdd()
-  percentShirts.innerHTML = percentageUpdates(shirtsTotal) + "%"
-  percentAccessories.innerHTML = percentageUpdates(accTotal) + "%"
-  percentShoes.innerHTML = percentageUpdates(shoesTotal) + "%"
-  percentShorts.innerHTML = percentageUpdates(shortsTotal) + "%"
+  productInput.value = "";
+  quantityInput.value = "";
+  updateTexts();
+  saveDataToLocalStorage();
+  selectAdd();
+  percentShirts.innerHTML = percentageUpdates(shirtsTotal) + "%";
+  percentAccessories.innerHTML = percentageUpdates(accTotal) + "%";
+  percentShoes.innerHTML = percentageUpdates(shoesTotal) + "%";
+  percentShorts.innerHTML = percentageUpdates(shortsTotal) + "%";
 }
-
 
 //Atualiza os textos, como total de produtos e a cor dos valores mínimos
 function updateTexts() {
-  totalItens = shirtsTotal + accTotal + shoesTotal + shortsTotal
-  totalProducts.innerHTML = totalItens
+  totalItens = shirtsTotal + accTotal + shoesTotal + shortsTotal;
+  totalProducts.innerHTML = totalItens;
 
   updatePercentageColors();
 }
@@ -151,16 +141,14 @@ function setPercentageColor(percentage, element) {
 
 //Função que retorna o novo valor de porcentagem que será aplicado no HTML
 function percentageUpdates(toUpdate) {
-  let newPercentage = 0
-  newPercentage = Math.floor((toUpdate * 100) / totalItens)
+  let newPercentage = 0;
+  newPercentage = Math.floor((toUpdate * 100) / totalItens);
 
-  if (isNaN(newPercentage)){
-    return 0
-  }else{
-    return newPercentage
+  if (isNaN(newPercentage)) {
+    return 0;
+  } else {
+    return newPercentage;
   }
-
-
 }
 
 // Salvar no local storage
@@ -171,15 +159,15 @@ function saveDataToLocalStorage() {
     shoesTotal,
     shortsTotal,
     totalItens,
-    arrayProdutos
+    arrayProdutos,
   };
 
-  localStorage.setItem('inventoryData', JSON.stringify(dataToSave));
+  localStorage.setItem("inventoryData", JSON.stringify(dataToSave));
 }
 
 // Carregar no local storage
 function loadDataFromLocalStorage() {
-  const savedData = localStorage.getItem('inventoryData');
+  const savedData = localStorage.getItem("inventoryData");
 
   if (savedData) {
     const parsedData = JSON.parse(savedData);
@@ -197,32 +185,31 @@ function loadDataFromLocalStorage() {
 }
 
 // Chama quando carrega a página
-window.addEventListener('load', loadDataFromLocalStorage);
+window.addEventListener("load", loadDataFromLocalStorage);
 
 function showAddMessage() {
-  successMessage.classList.add('show-message');
+  successMessage.classList.add("show-message");
   setTimeout(() => {
-    successMessage.classList.remove('show-message');
+    successMessage.classList.remove("show-message");
   }, 3000);
 }
 
-const editContainer = document.querySelector('.edit-container');
-const openEditButton = document.getElementById('submitBtn2');
-const mainContainer = document.querySelector('.container')
+const editContainer = document.querySelector(".edit-container");
+const openEditButton = document.getElementById("submitBtn2");
+const mainContainer = document.querySelector(".container");
 
-openEditButton.addEventListener('click', () => {
-  editContainer.style.display = 'block';
-  mainContainer.style.display = 'none';
+openEditButton.addEventListener("click", () => {
+  editContainer.style.display = "block";
+  mainContainer.style.display = "none";
 });
 
-
 // Seletor do botão "Voltar"
-const backButton = document.getElementById('backBtn');
+const backButton = document.getElementById("backBtn");
 
 // Adicione um ouvinte de evento para esconder a div.edit-container quando o botão "Voltar" é clicado
-backButton.addEventListener('click', () => {
-  mainContainer.style.display = 'block';
-  editContainer.style.display = 'none'; 
+backButton.addEventListener("click", () => {
+  mainContainer.style.display = "block";
+  editContainer.style.display = "none";
 });
 
 function mostrarMensagem() {
@@ -239,90 +226,87 @@ function fecharMensagem() {
   document.getElementById("message-box").style.display = "none";
 }
 
+function selectAdd() {
+  selectInputStock.options.length = 0;
 
-function selectAdd(){
-
-  selectInputStock.options.length = 0
-  
-  for(let i = 0; i < arrayProdutos.length; i++){
-    let newElement = document.createElement('option')
-    let content = arrayProdutos[i].nome + " x" + arrayProdutos[i].quantidade
-    newElement.textContent = content
-    newElement.value = arrayProdutos[i].id
+  for (let i = 0; i < arrayProdutos.length; i++) {
+    let newElement = document.createElement("option");
+    let content = arrayProdutos[i].nome + " x" + arrayProdutos[i].quantidade;
+    newElement.textContent = content;
+    newElement.value = arrayProdutos[i].id;
     selectInputStock.appendChild(newElement);
   }
 }
 
-selectInputStock.addEventListener('change', () => {
-  indexArr = selectInputStock.selectedIndex
-})
+selectInputStock.addEventListener("change", () => {
+  indexArr = selectInputStock.selectedIndex;
+});
 
-function editItem(){
-  let qtd = arrayProdutos[indexArr].quantidade
-  
-  if(editName.value == "" && editQuantity.value == ""){
-    window.alert('Escreva o nome ou a quantidade.')
-  }else if(editName.value != "" && editQuantity.value != ""){
-    arrayProdutos[indexArr].nome = editName.value
-    arrayProdutos[indexArr].quantidade = parseInt(editQuantity.value)
-    addItens(arrayProdutos[indexArr], qtd)
-  }else if(editName.value != ""){
-    arrayProdutos[indexArr].nome = editName.value
-    addItens(arrayProdutos[indexArr])
-  }else if(editQuantity.value != ""){
-    totalItens -= arrayProdutos[indexArr].quantidade
-    arrayProdutos[indexArr].quantidade = parseInt(editQuantity.value)
-    addItens(arrayProdutos[indexArr], qtd)
+function editItem() {
+  let qtd = arrayProdutos[indexArr].quantidade;
+
+  if (editName.value == "" && editQuantity.value == "") {
+    window.alert("Escreva o nome ou a quantidade.");
+  } else if (editName.value != "" && editQuantity.value != "") {
+    arrayProdutos[indexArr].nome = editName.value;
+    arrayProdutos[indexArr].quantidade = parseInt(editQuantity.value);
+    addItens(arrayProdutos[indexArr], qtd);
+  } else if (editName.value != "") {
+    arrayProdutos[indexArr].nome = editName.value;
+    addItens(arrayProdutos[indexArr]);
+  } else if (editQuantity.value != "") {
+    totalItens -= arrayProdutos[indexArr].quantidade;
+    arrayProdutos[indexArr].quantidade = parseInt(editQuantity.value);
+    addItens(arrayProdutos[indexArr], qtd);
   }
 }
 
-function deleteItem(){
-  let novaQtd = arrayProdutos[indexArr].quantidade
-  let obejeto = arrayProdutos[indexArr]
-  if(obejeto.categoria == "shirts"){
-    shirtsTotal -= novaQtd
-  }else if(obejeto.categoria == "accessories"){
-    accTotal -= novaQtd
-  }else if(obejeto.categoria == "shoes"){
-    shoesTotal -= novaQtd
-  }else{
-    shortsTotal -= novaQtd
+function deleteItem() {
+  let novaQtd = arrayProdutos[indexArr].quantidade;
+  let obejeto = arrayProdutos[indexArr];
+  if (obejeto.categoria == "shirts") {
+    shirtsTotal -= novaQtd;
+  } else if (obejeto.categoria == "accessories") {
+    accTotal -= novaQtd;
+  } else if (obejeto.categoria == "shoes") {
+    shoesTotal -= novaQtd;
+  } else {
+    shortsTotal -= novaQtd;
   }
-  arrayProdutos.splice(indexArr, 1)
-  selectAdd()
-  updateTexts()
+  arrayProdutos.splice(indexArr, 1);
+  selectAdd();
+  updateTexts();
 }
 
-
-exportBtn.addEventListener('click', () => {
+exportBtn.addEventListener("click", () => {
   exportToCSV();
 });
 
 function exportToCSV() {
-
   const dataToExport = [
-    { Categoria: 'Camisetas', Quantidade: shirtsTotal },
-    { Categoria: 'Acessórios', Quantidade: accTotal },
-    { Categoria: 'Calçados', Quantidade: shoesTotal },
-    { Categoria: 'Shorts', Quantidade: shortsTotal },
+    { Categoria: "Camisetas", Quantidade: shirtsTotal },
+    { Categoria: "Acessórios", Quantidade: accTotal },
+    { Categoria: "Calçados", Quantidade: shoesTotal },
+    { Categoria: "Shorts", Quantidade: shortsTotal },
   ];
 
-  const csvHeader = 'Categoria,Quantidade\n';
+  const csvHeader = "Categoria,Quantidade\n";
 
-  const csvData = dataToExport.map(item => {
-    return `${item.Categoria},${item.Quantidade}`;
-  }).join('\n');
+  const csvData = dataToExport
+    .map((item) => {
+      return `${item.Categoria},${item.Quantidade}`;
+    })
+    .join("\n");
 
   const csvContent = csvHeader + csvData;
-  const blob = new Blob([csvContent], { type: 'text/csv' });
-
+  const blob = new Blob([csvContent], { type: "text/csv" });
 
   const url = window.URL.createObjectURL(blob);
 
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = url;
-  a.download = 'relatorio_estoque.csv';
-  a.style.display = 'none';
+  a.download = "relatorio_estoque.csv";
+  a.style.display = "none";
 
   document.body.appendChild(a);
   a.click();
