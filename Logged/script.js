@@ -43,6 +43,7 @@ let indexArr = 0;
 submitBtn.addEventListener("click", readItem);
 editBtn.addEventListener("click", editItem);
 deleteBtn.addEventListener("click", deleteItem);
+languageSelector.addEventListener("onchange", changeLanguage);
 
 categorySelect.addEventListener("change", () => {
   index = categorySelect.selectedIndex;
@@ -315,4 +316,8 @@ function exportToCSV() {
 
   document.body.removeChild(a);
   window.URL.revokeObjectURL(url);
+}
+
+function changeLanguage(){
+  
 }
